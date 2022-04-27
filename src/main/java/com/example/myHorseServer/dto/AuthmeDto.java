@@ -2,6 +2,7 @@ package com.example.myHorseServer.dto;
 
 import lombok.*;
 
+import java.math.BigInteger;
 import java.util.Date;
 
 @Setter
@@ -13,19 +14,22 @@ import java.util.Date;
 public class AuthmeDto {
     private Integer id;
     private String username;
+    private String realname;
     private String password;
     private String ip;
-    private Date lastLogin;
+    private Integer lastLogin;
     private double x;
     private double y;
     private double z;
     private String world;
-    private Date regdate;
+    private Integer regdate;
     private String regip;
-    private String yaw;
-    private String pitch;
+    private Float yaw;
+    private Float pitch;
     private String email;
-    private boolean isLogged;
+    private boolean gamerLogged;
     private boolean hasSession;
     private String totp;
+
+
 }

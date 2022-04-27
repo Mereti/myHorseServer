@@ -4,6 +4,8 @@ import com.example.myHorseServer.dto.store.EquipmentCreateResponse;
 import com.example.myHorseServer.exception.EventNotFoundException;
 import com.example.myHorseServer.model.GamerEquipment;
 import com.example.myHorseServer.repository.GamerEquipmentRepository;
+import com.example.myHorseServer.repository.GamerRepository;
+import com.example.myHorseServer.repository.StoreRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,13 +17,18 @@ public class GamerEquipmentService {
     @Autowired
     private GamerEquipmentRepository gamerEquipmentRepository;
 
-    public GamerEquipment createEqiupment(GamerEquipment gamerEquipment){
-        System.out.println("Sprawdzamy: " + gamerEquipment.getGamerId()+ " next: " + gamerEquipment.getIdItem() + "next: " + gamerEquipment.getEquipmentId());
-        GamerEquipment creator = new GamerEquipment();
-        creator.setIdItem(gamerEquipment.getIdItem());
-        creator.setGamerId(gamerEquipment.getGamerId());
-        gamerEquipmentRepository.save(creator);
+    @Autowired
+    private GamerRepository gamerRepository;
 
+    @Autowired
+    private StoreRepository storeRepository;
+
+    public GamerEquipment createEqiupment(GamerEquipment gamerEquipment){
+
+        GamerEquipment creator = new GamerEquipment();
+        creator.setGamerId(gamerRepository.findByEmail(gamerEquipment.getGamerId().getEmail()).get());
+        creator.setIdItem(storeRepository.findByIdItem(gamerEquipment.getIdItem().getIdItem()).get());
+        gamerEquipmentRepository.save(creator);
 
         return new GamerEquipment(
                 creator.getEquipmentId(),

@@ -14,6 +14,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
+
 @CrossOrigin("*")
 @RestController
 @RequestMapping("/horse")
@@ -30,13 +32,10 @@ public class HorseController {
         return new ResponseEntity<Iterable<Horse>>(horseService.findAll(), HttpStatus.OK);
     }
 
-    @PutMapping(value = "/changehorse" )
-    public ResponseEntity<?> changeHorse(@AuthenticationPrincipal Gamer gamer, @RequestBody Horse horse){
+    @PostMapping(value = "/changehorse" )
+    public ResponseEntity<Optional<Horse>> changeHorse(@AuthenticationPrincipal Gamer gamer, @RequestBody Horse horse){
         System.out.println("Horse change");
-        if(gamer.getRole().getRoleName().equalsIgnoreCase("admin")) {
-            horseService.changeHorse(horse);
-            return ResponseEntity.ok().build();
-        }else return (ResponseEntity<?>) ResponseEntity.status(HttpStatus.FORBIDDEN);
+        return new ResponseEntity<Optional<Horse>>( horseService.changeHorse(horse), HttpStatus.OK);
     }
 
     @PutMapping(value = "/changebreed" )

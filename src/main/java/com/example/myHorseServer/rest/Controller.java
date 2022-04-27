@@ -2,8 +2,11 @@ package com.example.myHorseServer.rest;
 
 import com.example.myHorseServer.dto.LoginDto;
 import com.example.myHorseServer.dto.gamer.*;
+import com.example.myHorseServer.model.Authme;
+import com.example.myHorseServer.model.Event;
 import com.example.myHorseServer.model.Gamer;
 import com.example.myHorseServer.security.JwtTokenUtil;
+import com.example.myHorseServer.service.AuthmeService;
 import com.example.myHorseServer.service.GamerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,8 +28,12 @@ public class Controller {
     private final AuthenticationManager authenticationManager;
     @Autowired
     private JwtTokenUtil jwtTokenUtil;
+
     @Autowired
     private GamerService gamerService;//referencja
+
+    @Autowired
+    private AuthmeService authmeService;
 
     @GetMapping(value = "/username")
     public ResponseEntity<?> username(@AuthenticationPrincipal Gamer gamer) {
@@ -69,16 +76,16 @@ public class Controller {
         return ResponseEntity.ok().build();
     }
 
-    @PutMapping(value="/gamer/changepoints")
-    public ResponseEntity<?> changePoints(@RequestBody ChangePointsDto points){
+    @PostMapping(value="/gamer/changepoints")
+    public ResponseEntity<Gamer> changePoints(@RequestBody ChangePointsDto points){
         System.out.println("change game information -> points");
-        gamerService.changePoints(points);
-        return ResponseEntity.ok().build();
+
+        return new ResponseEntity<Gamer>( gamerService.changePoints(points),HttpStatus.OK);
     }
 
     @PutMapping(value="/gamer/changeposition")
     public ResponseEntity<?> changeGamerPosition(@RequestBody ChangeGamerPosition position){
-        System.out.println("hange game information -> login, logout");
+        System.out.println("change game information -> login, logout");
         gamerService.changeGamerPosition(position);
         return ResponseEntity.ok().build();
     }
@@ -99,8 +106,8 @@ public class Controller {
 
     //delete user
 
-    @DeleteMapping(value = "/deleteuser/{email}")
-    public ResponseEntity<GamerDeleteResponse> deleteUser(@AuthenticationPrincipal Gamer gamer, @PathVariable String email) {
+    @DeleteMapping(value = "/deleteuser")
+    public ResponseEntity<GamerDeleteResponse> deleteUser(@AuthenticationPrincipal Gamer gamer, @RequestBody String email) {
         if(gamer.getRole().getRoleName().equalsIgnoreCase("admin")) {
             return ResponseEntity.ok(gamerService.delete(email));
         }
@@ -111,6 +118,7 @@ public class Controller {
     @PostMapping(value = "/register")
     public ResponseEntity<GamerRegisterResponse> registerRegister(@RequestBody GamerRegisterDto gamerRegisterDto) {
         GamerRegisterResponse registrationResponse = gamerService.register(gamerRegisterDto);
+        Authme authme = authmeService.createAuthmeAccount(gamerRegisterDto);
 
         System.out.println("--- User registration");
 

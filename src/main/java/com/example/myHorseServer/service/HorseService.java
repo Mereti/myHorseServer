@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 
@@ -94,33 +95,40 @@ public class HorseService {
         return horseRepository.findAll();
     }
 
-    public void changeHorse(Horse horseChange){
+    public Optional<Horse> changeHorse(Horse horseChange){
            Horse horse = horseRepository.findByHorseId(horseChange.getHorseId())
                    .orElseThrow(()-> new NotFoundException());
            if(!horseChange.equals(horse) || horseChange != null){
                if(!horseChange.getGamerStud().equals(horse.getGamerStud()) || horseChange.getGamerStud()!=null){
                    horse.setGamerStud(horseChange.getGamerStud());
-               }else throw new NoChangeException("No change in gamer stud");
-               if(!horseChange.getName().equals(horse.getName()) || horseChange.getName()!= null){
+                   horseRepository.save(horse);
+                   return horseRepository.findByHorseId(horse.getHorseId());
+               } else if(!horseChange.getName().equals(horse.getName()) || horseChange.getName()!= null){
                    horse.setName(horseChange.getName());
-               }else throw new NoChangeException("No change in horse name");
-               if(horseChange.getBreed() != null && !horseChange.getBreed().equals(horse.getBreed()) ){
+                   horseRepository.save(horse);
+                   return horseRepository.findByHorseId(horse.getHorseId());
+               }else if(horseChange.getBreed() != null && !horseChange.getBreed().equals(horse.getBreed()) ){
                    horse.setBreed(horseChange.getBreed());
-               }else throw new NoChangeException("No change in breed");
-               if (horseChange.getFast() != horse.getHorseId()){
+                   horseRepository.save(horse);
+                   return horseRepository.findByHorseId(horse.getHorseId());
+               }else if (horseChange.getFast() != horse.getHorseId()){
                     horse.setFast(horseChange.getFast());
-               }else throw new NoChangeException("No change in fast");
-               if(horseChange.getThirst() != 0 && horseChange.getThirst() != horse.getThirst()){ //TODO: testnac to
-                    horse.setThirst(horseChange.getThirst());
-               }else throw new NoChangeException("No change in thirsty");
-               if(horseChange.getAppearance()!= 0 && horseChange.getAppearance()!=horse.getAppearance()){
+                   horseRepository.save(horse);
+                   return horseRepository.findByHorseId(horse.getHorseId());
+               }else if(horseChange.getThirst() != 0 && horseChange.getThirst() != horse.getThirst()){
+                   horse.setThirst(horseChange.getThirst());
+                   horseRepository.save(horse);
+                   return horseRepository.findByHorseId(horse.getHorseId());
+               }else if(horseChange.getAppearance()!= 0 && horseChange.getAppearance()!=horse.getAppearance()){
                    horse.setAppearance(horseChange.getAppearance());
-               }else throw new NoChangeException("No change in appearance");
-               if(horseChange.getValue()!=0 && horseChange.getValue()!=horse.getValue()){
+                   horseRepository.save(horse);
+                   return horseRepository.findByHorseId(horse.getHorseId());
+               }else if(horseChange.getValue()!=0 && horseChange.getValue()!=horse.getValue()){
                    horse.setValue(horse.getValue());
+                   horseRepository.save(horse);
+                   return horseRepository.findByHorseId(horse.getHorseId());
                } else throw new NoChangeException("No change in value");
            }else throw new NoChangeException("No change in horse");
-        horseRepository.save(horse);
     }
     public void changeBreed(Breed breedChange){
         Breed breed = breedRepository.findByBreedId(breedChange.getBreedId())

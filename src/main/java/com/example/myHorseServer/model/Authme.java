@@ -25,46 +25,49 @@ public class Authme {
     @Column(name="username", nullable = false)
     private String username;
 
+    @Column(name = "realname")
+    private String realname;
+
     @Column(name="password", nullable = false)
     private String password;
 
     @Column(name="ip", nullable = false)
     private String ip;
 
-    @Column(name="lastlogin", nullable = false)
-    private Date lastLogin;
+    @Column(name="lastlogin", nullable = true)
+    private Integer lastLogin;
 
-    @Column(name="x", nullable = false)
+    @Column(name="x", nullable = true)
     private double x;
 
-    @Column(name="y", nullable = false)
+    @Column(name="y", nullable = true)
     private double y;
 
-    @Column(name="z", nullable = false)
+    @Column(name="z", nullable = true)
     private double z;
 
     @Column(name="world", nullable = false)
     private String world;
 
-    @Column(name="regdate", nullable = false)
-    private Date regdate;
+    @Column(name="regdate", nullable = true)
+    private Integer regdate;
 
-    @Column(name="regip", nullable = false)
+    @Column(name="regip", nullable = true)
     private String regip;
 
     @Column(name="yaw", nullable = true)
-    private String yaw;
+    private Float yaw;
 
-    @Column(name="pitch", nullable = true)
-    private String pitch;
+    @Column(name="pitch")
+    private Float pitch;
 
-    @Column(name="email", nullable = true)
+    @Column(name="email")
     private String email;
 
-    @Column(name="isLogged", nullable = false)
-    private boolean isLogged;
+    @Column(name="isLogged")
+    private boolean gamerLogged;
 
-    @Column(name="hasSession", nullable = false)
+    @Column(name="hasSession")
     private boolean hasSession;
 
     @Column(name="totp", nullable = true)

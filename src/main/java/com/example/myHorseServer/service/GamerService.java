@@ -85,12 +85,14 @@ public class GamerService implements UserDetailsService {
         }else throw new RuntimeException("Login time unchanged");
     }
 
-    public void changePoints(ChangePointsDto points){
-        Gamer gamer = gamerRepository.findByEmail(points.getEmial()).orElseThrow(()-> new NotFoundException());
-        if(!points.getPoints().equals(gamer.getPoints())){
-            gamer.setPoints(gamer.getPoints()+points.getPoints());
+    public Gamer changePoints(ChangePointsDto points){
+        System.out.println("my points!!!!!!!!!!! " +points.getGamer().getEmail());
+        Gamer gamer = gamerRepository.findByEmail(points.getGamer().getEmail()).orElseThrow(()-> new NotFoundException());
+        if(gamer.getPoints() >= points.getPoints()){
+            gamer.setPoints(points.getPoints());
             gamerRepository.save(gamer);
-        }else throw new RuntimeException("Points unchanged");
+            return gamer;
+        }else throw  new RuntimeException("brak wystarczajacej ilości punktów");
     }
 
     public void changeGamerPosition(ChangeGamerPosition position){
