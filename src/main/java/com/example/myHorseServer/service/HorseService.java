@@ -96,8 +96,10 @@ public class HorseService {
     }
 
     public Optional<Horse> changeHorse(Horse horseChange){
-           Horse horse = horseRepository.findByHorseId(horseChange.getHorseId())
+        System.out.println("HOOORSEEE IDDD ____" + horseChange.getHorseId());
+        Horse horse = horseRepository.findByHorseId(horseChange.getHorseId())
                    .orElseThrow(()-> new NotFoundException());
+
            if(!horseChange.equals(horse) || horseChange != null){
                if(!horseChange.getGamerStud().equals(horse.getGamerStud()) || horseChange.getGamerStud()!=null){
                    horse.setGamerStud(horseChange.getGamerStud());
@@ -116,7 +118,8 @@ public class HorseService {
                    horseRepository.save(horse);
                    return horseRepository.findByHorseId(horse.getHorseId());
                }else if(horseChange.getThirst() != 0 && horseChange.getThirst() != horse.getThirst()){
-                   horse.setThirst(horseChange.getThirst());
+                   horse.setThirst(horseChange.getThirst() + horse.getThirst());
+                   System.out.println("oki?");
                    horseRepository.save(horse);
                    return horseRepository.findByHorseId(horse.getHorseId());
                }else if(horseChange.getAppearance()!= 0 && horseChange.getAppearance()!=horse.getAppearance()){

@@ -56,19 +56,20 @@ public class ServiceTest {
         gamerRegisterDtoTest.setEmail("test@gamer.pl");
         gamerRegisterDtoTest.setNickname("gamertest");
         gamerRegisterDtoTest.setPassword("gamertestpassword");
-        when(gamerRepository.findByGamerEmail("test@gamer.pl")).thenReturn(Optional.empty());
+        when(gamerRepository.findByEmail("test@gamer.pl")).thenReturn(Optional.empty());
         when(gamerRepository.save(any(Gamer.class))).then(returnsFirstArg());
         when(paswordEncoder.encode(any(CharSequence.class))).thenReturn("GamerTestPassword");
         when(roleRepository.findByRoleName("gracz")).thenReturn(Optional.of(new Role(1, "role")));
         GamerRegisterResponse savedGamer = gamerService.register(gamerRegisterDtoTest);
        assertTrue(savedGamer.equals(new GamerRegisterResponse(new GamerDataDto(
                null,
+               null,
                "gamertest",
                0,
                null,
                null,
                0,
-               //0,
+               null,
                0,
                0,
                0,
@@ -81,8 +82,8 @@ public class ServiceTest {
     public void deleteTest(){
             GamerDeleteDto gamerDeleteDtoTest = new GamerDeleteDto();
             gamerDeleteDtoTest.setEmail("test@gamer.pl");
-            when(gamerRepository.findByGamerEmail("test@gamer.pl")).thenReturn(Optional.empty());
+            when(gamerRepository.findByEmail("test@gamer.pl")).thenReturn(Optional.empty());
             GamerDeleteResponse deleteGamer = gamerService.delete(gamerDeleteDtoTest.getEmail());
-            assertTrue(deleteGamer.getGamer().getGamerEmail().isEmpty());
+            assertTrue(deleteGamer.getGamer().getEmail().isEmpty());
         }
 }

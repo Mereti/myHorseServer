@@ -35,7 +35,7 @@ public class GamerDataDto {
                     && Objects.equals(points,other.points) && Objects.equals(lastLogin,other.lastLogin)
                     && Objects.equals(lastLogout,other.lastLogout) && Objects.equals(spendTime,other.spendTime)
                     && loc_x==(other.loc_x) && loc_y==(other.loc_y)
-                    && loc_z==(other.loc_z) && Objects.equals(gamerEmail,other.gamerEmail)
+                    && loc_z==(other.loc_z) && Objects.equals(email,other.email)
                     && Objects.equals(password,other.password) ;
         }
         return false;
