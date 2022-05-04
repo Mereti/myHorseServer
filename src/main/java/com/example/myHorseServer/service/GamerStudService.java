@@ -32,7 +32,6 @@ public class GamerStudService {
             ),"New gamer stud created successfull");
         }return new GamerStudRegisterResponse(null, "Gamer not found");
     }
-
     public Iterable<GamerStud> findAll(){
         return gamerStudRepository.findAll();
     }
@@ -42,7 +41,6 @@ public class GamerStudService {
                 .orElseThrow(() -> new GamerStudNotFound(format("Gamer Stud with gamer id - %s, not found", gamerId))
                 );
     }
-
     public void editGamerStud(GamerStud gamerStudChange){
         GamerStud gamerStud = gamerStudRepository.findByGamerStudId(gamerStudChange.getGamerStudId())
                 .orElseThrow(()->new GamerStudNotFound(format("Not found stud with id - %s",gamerStudChange.getGamerStudId())));
@@ -56,7 +54,6 @@ public class GamerStudService {
         }else throw new RuntimeException("No changes");
         gamerStudRepository.save(gamerStud);
     }
-
     public GamerStudDeleteResponse deleteGamerStud(Integer gamerStudId){
         GamerStud gamerStudDelete = gamerStudRepository.findByGamerStudId(gamerStudId)
                 .orElseThrow(()->new GamerStudNotFound(format("Not found stud with id - %s",gamerStudId)));
@@ -67,7 +64,5 @@ public class GamerStudService {
                 gamerStudDelete.getGamerId(),
                 gamerStudDelete.getStudName()
         ),"Deleted successfull");
-
     }
-
 }

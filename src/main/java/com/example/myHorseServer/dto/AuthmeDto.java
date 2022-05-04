@@ -2,9 +2,6 @@ package com.example.myHorseServer.dto;
 
 import lombok.*;
 
-import java.math.BigInteger;
-import java.util.Date;
-
 @Setter
 @Getter
 @AllArgsConstructor

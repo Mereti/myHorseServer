@@ -13,7 +13,5 @@ import lombok.Setter;
 @NoArgsConstructor
 
 public class GamerLoginResponse {
-    //private GamerDataDto gamer;
     private String message;
-   // private GamerService.Login_Status gamerLoginStatus;
 }

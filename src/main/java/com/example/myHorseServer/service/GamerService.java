@@ -37,8 +37,6 @@ public class GamerService implements UserDetailsService {
     private final AuthmeRepository authmeRepository;
 
 
-
-
     public boolean login(String email, String password) {
         Gamer gto = gamerRepository.findByEmail(email).orElseThrow(() -> new NotFoundException());
         return gto.getEmail().equalsIgnoreCase(email) && gto.getPassword().equals(password);
@@ -65,7 +63,6 @@ public class GamerService implements UserDetailsService {
             throw new RuntimeException("Incorrect password");
     }
 
-    //TODO: sprawdzić changeRole, changeInformationGame, changeData
     public void changeRole(ChangeGamerRole role){
         Gamer gamer = gamerRepository.findByEmail(role.getEmail()).orElseThrow(()-> new NotFoundException());
         Gamer gamerToChange = gamerRepository.findByEmail(role.getEmailGamerToChange()).orElseThrow(()-> new NotFoundException());//sprawdzenie czy nasz gracz któremu chcemy zmienić role istnieje w bazie
@@ -88,7 +85,6 @@ public class GamerService implements UserDetailsService {
             gamer.setLastLogin(informations.getNewlastLogin());
             gamer.setLastLogout(informations.getNewlastLogout());
             informations.setNewspendTime((int) (informations.getNewlastLogout().getTime() - informations.getNewlastLogin().getTime()));
-            //TODO: sprawdzic poprawnosc zapisu daty i jej wyliczenia spedzonego czasu.
             gamer.setSpendTime(informations.getSpendTime()+ informations.getNewspendTime());
             gamerRepository.save(gamer);
             System.out.println("Time was saved");

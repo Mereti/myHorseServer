@@ -14,7 +14,9 @@ import javax.persistence.*;
 @Entity
 @Table(name = "horse")
 
+
 public class Horse {
+
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name="horse_id", nullable = false, unique=true)
@@ -22,23 +24,23 @@ public class Horse {
 
 
     @Column(name = "bukkit_horse_id")
-    private String bukkitHorseId; // rasa konia
+    private String bukkitHorseId;
 
     @Column(name="name", nullable = false)
-    private String name; // imie konia
+    private String name;
 
     @OneToOne
     @JoinColumn(name = "breed_id")
-    private Breed breed; // rasa konia
+    private Breed breed;
 
     @Column(name="fast", nullable = false)
-    private double fast; // szybkość konia
+    private double fast;
 
     @Column(name="hungry", nullable = false)
-    private double hungry; // głód konia
+    private double hungry;
 
     @Column(name="thirst", nullable = false)
-    private double thirst; // pragnienie konia
+    private double thirst;
 
     @Column(name="appearance", nullable = false)
     private double appearance;
@@ -46,7 +48,9 @@ public class Horse {
     @Column(name="value", nullable = false)
     private double value;
 
-    @ManyToOne
+
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "gamer_stud_id")
     private GamerStud gamerStud;
 }
+

@@ -17,11 +17,11 @@ public class Horse {
     private Integer horseId;
     private String bukkitHorseId;
     private GamerStud gamerStudId;
-    private String name; // imie konia
-    private Breed breedId; // rasa konia
-    private double fast; // szybkość konia
-    private double hungry; // głód konia
-    private double thirst; // pragnienie konia
+    private String name;
+    private Breed breedId;
+    private double fast;
+    private double hungry;
+    private double thirst;
     private double appearance;
     private double value;
 
