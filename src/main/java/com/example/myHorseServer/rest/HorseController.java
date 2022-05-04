@@ -35,7 +35,7 @@ public class HorseController {
     @PostMapping(value = "/changehorse" )
     public ResponseEntity<Optional<Horse>> changeHorse(@AuthenticationPrincipal Gamer gamer, @RequestBody Horse horse){
         System.out.println("Horse change");
-        return new ResponseEntit y<Optional<Horse>>( horseService.changeHorse(horse), HttpStatus.OK);
+        return new ResponseEntity<Optional<Horse>>( horseService.changeHorse(horse), HttpStatus.OK);
     }
 
     @PutMapping(value = "/changebreed" )

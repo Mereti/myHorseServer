@@ -17,6 +17,9 @@ public class AuthmeService {
     @Autowired
     AuthmeRepository authmeRepository;
 
+    @Autowired
+    AuthmePasswordEncoder authmePasswordEncoder;
+
     public Authme createAuthmeAccount(GamerRegisterDto gamer){
 
             String ip = null;
@@ -26,11 +29,16 @@ public class AuthmeService {
         } catch (UnknownHostException | SocketException e) {
             e.printStackTrace();
         }
+        System.out.println("passssssworrddd: " + gamer.getPassword());
+
+        String password = authmePasswordEncoder.encode(gamer.getPassword());
+
+        System.out.println("passssssworrddd: " + password);
 
         Authme creator = new Authme();
         creator.setUsername(gamer.getNickname());
         creator.setRealname(gamer.getNickname());
-        creator.setPassword(gamer.getPassword());
+        creator.setPassword(password);
         creator.setIp(ip);
         creator.setLastLogin((int) new Date().getTime());
         creator.setX(0.0);
