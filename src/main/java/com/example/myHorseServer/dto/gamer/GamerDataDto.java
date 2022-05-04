@@ -13,7 +13,7 @@ import java.util.Objects;
 
 public class GamerDataDto {
     private Integer gamerId;
-    private String authmeId;
+    private Integer authmeId;
     private String nickname;
     private Integer points;
     private Date lastLogin;

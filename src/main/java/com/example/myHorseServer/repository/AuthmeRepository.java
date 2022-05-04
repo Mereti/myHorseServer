@@ -13,4 +13,7 @@ public interface AuthmeRepository extends JpaRepository<Authme, Integer> {
 
     @Cacheable
     Optional<Authme> findById(Integer id);
+
+    @Cacheable
+    Optional<Authme> findByUsername(String nickname);
 }

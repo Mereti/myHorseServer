@@ -3,6 +3,7 @@ package com.example.myHorseServer.service;
 import com.example.myHorseServer.dto.gamer.*;
 import com.example.myHorseServer.exception.NotFoundException;
 import com.example.myHorseServer.model.Gamer;
+import com.example.myHorseServer.repository.AuthmeRepository;
 import com.example.myHorseServer.repository.GamerRepository;
 import com.example.myHorseServer.repository.RoleRepository;
 import lombok.*;
@@ -31,6 +32,9 @@ public class GamerService implements UserDetailsService {
 
     @Autowired
     private final PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private final AuthmeRepository authmeRepository;
 
 
 
@@ -157,9 +161,10 @@ public class GamerService implements UserDetailsService {
     }
 
     public GamerRegisterResponse register(GamerRegisterDto gamerRegisterDto){
+       Integer authmeId = authmeRepository.findByUsername(gamerRegisterDto.getNickname()).get().getId();
         if(gamerRepository.findByEmail(gamerRegisterDto.getEmail()).isEmpty()){
             Gamer gamer = new Gamer();
-            gamer.setAuthmeId(gamerRegisterDto.getAuthme());
+            gamer.setAuthmeId(authmeId);
             gamer.setEmail(gamerRegisterDto.getEmail());
             gamer.setPassword(passwordEncoder.encode(gamerRegisterDto.getPassword()));
             gamer.setNickname(gamerRegisterDto.getNickname());

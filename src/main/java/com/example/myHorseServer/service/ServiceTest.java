@@ -3,6 +3,7 @@ import com.example.myHorseServer.dto.LoginDto;
 import com.example.myHorseServer.dto.gamer.*;
 import com.example.myHorseServer.model.Gamer;
 import com.example.myHorseServer.model.Role;
+import com.example.myHorseServer.repository.AuthmeRepository;
 import com.example.myHorseServer.repository.GamerRepository;
 import com.example.myHorseServer.repository.RoleRepository;
 import junit.framework.Assert;
@@ -38,6 +39,9 @@ public class ServiceTest {
     @Mock
     private RoleRepository roleRepository = Mockito.mock(RoleRepository.class);
 
+    @Mock
+    private AuthmeRepository authmeRepository;
+
 
     private GamerService gamerService;
 
@@ -47,7 +51,7 @@ public class ServiceTest {
     }
     @BeforeEach
     void initGamerCase(){
-        gamerService = new GamerService(gamerRepository,roleRepository,paswordEncoder);
+        gamerService = new GamerService(gamerRepository,roleRepository,paswordEncoder,authmeRepository);
     }
 
     @Test

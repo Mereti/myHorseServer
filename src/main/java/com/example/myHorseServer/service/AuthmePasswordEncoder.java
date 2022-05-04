@@ -1,6 +1,7 @@
 package com.example.myHorseServer.service;
 
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.nio.charset.StandardCharsets;
@@ -9,9 +10,8 @@ import java.security.NoSuchAlgorithmException;
 
 
 
+
 public class AuthmePasswordEncoder implements PasswordEncoder {
-    @Bean
-    public PasswordEncoder getAuthmePasswordWncoder() { return new AuthmePasswordEncoder(); }
 
     private static final String ALPHA_NUMERIC_STRING = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789".toLowerCase();
     private static final int SALT_LENGTH = 16;

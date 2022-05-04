@@ -24,7 +24,7 @@ public class Gamer implements UserDetails, Serializable {
     private Integer gamerId;
 
     @Column(name="authme_id", nullable = true)
-    private String authmeId;
+    private Integer authmeId;
 
     @Column(name="nickname", nullable = false)
     private String nickname;

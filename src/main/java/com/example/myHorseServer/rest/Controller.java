@@ -30,7 +30,7 @@ public class Controller {
     private JwtTokenUtil jwtTokenUtil;
 
     @Autowired
-    private GamerService gamerService;//referencja
+    private GamerService gamerService;
 
     @Autowired
     private AuthmeService authmeService;
@@ -117,8 +117,9 @@ public class Controller {
     @CrossOrigin
     @PostMapping(value = "/register")
     public ResponseEntity<GamerRegisterResponse> registerRegister(@RequestBody GamerRegisterDto gamerRegisterDto) {
-        GamerRegisterResponse registrationResponse = gamerService.register(gamerRegisterDto);
         Authme authme = authmeService.createAuthmeAccount(gamerRegisterDto);
+        GamerRegisterResponse registrationResponse = gamerService.register(gamerRegisterDto);
+
 
         System.out.println("--- User registration");
 
